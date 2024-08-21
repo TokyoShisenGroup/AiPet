@@ -4,7 +4,7 @@ import 'package:aipet/Utility/typedefinition.dart'; // Import the typedefinition
 class PetDetailPage extends StatefulWidget {
   final Pet pet;
 
-  PetDetailPage({required this.pet});
+  const PetDetailPage({super.key, required this.pet});
 
   @override
   _PetDetailPageState createState() => _PetDetailPageState();
@@ -70,17 +70,17 @@ class _PetDetailPageState extends State<PetDetailPage> {
                 Expanded(
                   child: TextField(
                     controller: _descriptionController,
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       hintText: 'Enter reminder description',
                     ),
                   ),
                 ),
                 IconButton(
-                  icon: Icon(Icons.access_time),
+                  icon: const Icon(Icons.access_time),
                   onPressed: () => _selectTime(context),
                 ),
                 IconButton(
-                  icon: Icon(Icons.add),
+                  icon: const Icon(Icons.add),
                   onPressed: _addReminder,
                 ),
               ],

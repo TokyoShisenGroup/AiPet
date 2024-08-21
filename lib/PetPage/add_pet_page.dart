@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
-import "package:aipet/Utility/typedefinition.dart";
 
 class AddPetPage extends StatelessWidget {
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _typeController = TextEditingController();
 
+  AddPetPage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Add Pet'),
+        title: const Text('Add Pet'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -17,19 +18,19 @@ class AddPetPage extends StatelessWidget {
           children: [
             TextField(
               controller: _nameController,
-              decoration: InputDecoration(labelText: 'Pet Name'),
+              decoration: const InputDecoration(labelText: 'Pet Name'),
             ),
             TextField(
               controller: _typeController,
-              decoration: InputDecoration(labelText: 'Pet Type'),
+              decoration: const InputDecoration(labelText: 'Pet Type'),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             ElevatedButton(
               onPressed: () {
                 // Add pet to the list
                 Navigator.pop(context);
               },
-              child: Text('Add Pet'),
+              child: const Text('Add Pet'),
             ),
           ],
         ),

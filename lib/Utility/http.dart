@@ -1,4 +1,3 @@
-import 'package:aipet/MyPage/mypage.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:aipet/Utility/typedefinition.dart';
@@ -49,7 +48,7 @@ Future<Map<String, dynamic>> fetchPost(int id) async {
 
 /// 示例：创建一个新的帖子
 Future<Map<String, dynamic>> createPost(String title, String body, String userId) async {
-  final url = 'https://jsonplaceholder.typicode.com/posts';
+  const url = 'https://jsonplaceholder.typicode.com/posts';
   final thePostData = {
     'title': title,
     'body': body,

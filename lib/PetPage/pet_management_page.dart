@@ -9,14 +9,16 @@ class PetManagementPage extends StatelessWidget {
     Pet(name: 'Mittens', type: 'Cat'),
   ];
 
+ PetManagementPage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Pet Management'),
+        title: const Text('Pet Management'),
         actions: [
           IconButton(
-            icon: Icon(Icons.add),
+            icon: const Icon(Icons.add),
             onPressed: () {
               Navigator.push(
                 context,
@@ -31,7 +33,7 @@ class PetManagementPage extends StatelessWidget {
         itemBuilder: (context, index) {
           final pet = pets[index];
           return ListTile(
-            leading: Icon(Icons.pets),
+            leading: const Icon(Icons.pets),
             title: Text(pet.name),
             subtitle: Text(pet.type),
             onTap: () {
