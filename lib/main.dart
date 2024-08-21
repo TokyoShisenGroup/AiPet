@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'MyPage/mypage.dart';
-import "package:aipet/ChatPage/chat_list_page.dart";
-import "package:aipet/ChatPage/friend_list_page.dart";
+import 'package:aipet/ChatPage/chat_list_page.dart';
+import 'package:aipet/PetPage/pet_management_page.dart'; // Import the pet management page
 
 void main() {
   runApp(const MyApp());
@@ -15,7 +15,6 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
       home: const MyBottomNavigationBarApp(),
@@ -43,8 +42,8 @@ class _MyBottomNavigationBarState extends State<MyBottomNavigationBar> {
   int _selectedIndex = 0;
 
   static final List<Widget> _widgetOptions = <Widget>[
-    FriendsListPage(),
     ChatListPage(),
+    PetManagementPage(), // Add the pet management page
     MyPage(),
   ];
 
@@ -66,19 +65,16 @@ class _MyBottomNavigationBarState extends State<MyBottomNavigationBar> {
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
-            icon: Icon(Icons.people),
-            label: 'Friends',
-            backgroundColor: Colors.blue,
-          ),
-          BottomNavigationBarItem(
             icon: Icon(Icons.chat),
             label: 'Chats',
-            backgroundColor: Colors.blue,
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.pets),
+            label: 'Pets',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.person),
             label: 'Profile',
-            backgroundColor: Colors.blue,
           ),
         ],
         currentIndex: _selectedIndex,

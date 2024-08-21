@@ -4,7 +4,7 @@ import 'package:aipet/Utility/typedefinition.dart';
 class ChatPage extends StatefulWidget {
   final User friend;
 
-  ChatPage({required this.friend});
+  const ChatPage({super.key, required this.friend});
 
   @override
   _ChatPageState createState() => _ChatPageState();
@@ -18,7 +18,7 @@ class _ChatPageState extends State<ChatPage> {
     final message = Message(
       sender: 'me',
       content: _controller.text,
-      timestamp: DateTime.now(),
+      timestamp: DateTime.now()
     );
     setState(() {
       messages.add(message);
