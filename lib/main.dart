@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-
-import 'MyPage/Mypage.dart';
+import 'MyPage/mypage.dart';
+import "package:aipet/ChatPage/chat_list_page.dart";
+import "package:aipet/ChatPage/friend_list_page.dart";
 
 void main() {
   runApp(const MyApp());
@@ -27,9 +28,7 @@ class MyBottomNavigationBarApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: MyBottomNavigationBar(),
-    );
+    return const MyBottomNavigationBar();
   }
 }
 
@@ -42,21 +41,10 @@ class MyBottomNavigationBar extends StatefulWidget {
 
 class _MyBottomNavigationBarState extends State<MyBottomNavigationBar> {
   int _selectedIndex = 0;
-  static const TextStyle optionStyle =
-      TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
+
   static final List<Widget> _widgetOptions = <Widget>[
-    const Text(
-      'Index 0: Home',
-      style: optionStyle,
-    ),
-    const Text(
-      'Index 1: Business',
-      style: optionStyle,
-    ),
-    const Text(
-      'Index 2: School',
-      style: optionStyle,
-    ),
+    FriendsListPage(),
+    ChatListPage(),
     MyPage(),
   ];
 
@@ -78,28 +66,23 @@ class _MyBottomNavigationBarState extends State<MyBottomNavigationBar> {
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Home',
+            icon: Icon(Icons.people),
+            label: 'Friends',
             backgroundColor: Colors.blue,
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.business),
-            label: 'Business',
+            icon: Icon(Icons.chat),
+            label: 'Chats',
             backgroundColor: Colors.blue,
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.school),
-            label: 'School',
-            backgroundColor: Colors.blue,
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.settings),
-            label: 'MyPage',
+            icon: Icon(Icons.person),
+            label: 'Profile',
             backgroundColor: Colors.blue,
           ),
         ],
         currentIndex: _selectedIndex,
-        selectedItemColor: Colors.white,
+        selectedItemColor: Colors.red,
         onTap: _onItemTapped,
       ),
     );
