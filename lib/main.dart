@@ -56,9 +56,6 @@ class _MyBottomNavigationBarState extends State<MyBottomNavigationBar> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('AiPet'),
-      ),
       body: Center(
         child: _widgetOptions.elementAt(_selectedIndex),
       ),

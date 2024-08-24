@@ -5,8 +5,8 @@ import "package:aipet/ChatPage/chat_page.dart"; // Import the chat page
 class ChatListPage extends StatelessWidget {
   ChatListPage({super.key});
   final List<Chat> chats = [
-    Chat(friend: User(name: 'Alice', avatarUrl: 'https://avatars.githubusercontent.com/u/68729861?v=4', email: 'alice@example.com'), lastMessage: 'Hello!'),
-    Chat(friend: User(name: 'Bob', avatarUrl: 'https://avatars.githubusercontent.com/u/68729861?v=4', email: 'bob@example.com'), lastMessage: 'How are you?'),
+    Chat(friend: User(userid:1,name: 'Alice', avatarUrl: 'https://avatars.githubusercontent.com/u/68729861?v=4', email: 'alice@example.com'), lastMessage: 'Hello!'),
+    Chat(friend: User(userid:2,name: 'Bob', avatarUrl: 'https://avatars.githubusercontent.com/u/68729861?v=4', email: 'bob@example.com'), lastMessage: 'How are you?'),
   ];
 
   @override

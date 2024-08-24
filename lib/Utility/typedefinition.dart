@@ -4,8 +4,8 @@ class User {
   final String name;
   final String avatarUrl;
   final String email;
-
-  User({required this.name, required this.avatarUrl, required this.email});
+  final int userid;
+  User({required this.name, required this.avatarUrl, required this.email,required this.userid});
 }
 
 class Chat {
@@ -20,7 +20,8 @@ class Message {
   final String content;
   final DateTime timestamp;
 
-  Message({required this.sender, required this.content, required this.timestamp});
+  Message(
+      {required this.sender, required this.content, required this.timestamp});
 }
 
 class Pet {
@@ -35,4 +36,10 @@ class Reminder {
   final TimeOfDay time;
 
   Reminder({required this.description, required this.time});
+}
+
+class Friend {
+  final String username;
+  final int userid;
+  Friend({required this.username, required this.userid});
 }
