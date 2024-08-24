@@ -28,9 +28,18 @@ class Message {
 class Pet {
   String    name;
   String    type;
-  double     weight;
+  String    kind;
+  double    weight;
   DateTime  birthday;
-  Pet({required this.name, required this.type, required this.weight, required this.birthday});
+  Pet({required this.name, required this.type, required this.kind, required this.weight, required this.birthday});
+  Map<String, dynamic> toJson() => {
+    'name': name,
+    'type': type,
+    'kind': kind,
+    'weight': weight,
+    'birthday': birthday.toIso8601String(),
+    'OwnerName':'Mitsuhiro',
+  };
 }
 
 class Reminder {

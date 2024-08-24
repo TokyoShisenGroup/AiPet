@@ -1,3 +1,4 @@
+import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:aipet/Utility/typedefinition.dart';
@@ -15,7 +16,7 @@ Future<Map<String, dynamic>> fetchData(String url) async {
 
 User fetchUserData(String url) {
     final User user = User(
-    name: 'ロウチン',
+    name: 'Mitsuhiro',
     avatarUrl: 'https://avatars.githubusercontent.com/u/68729861?v=4',
     email: 'guanjiezou@gmail.com',
   );
@@ -55,3 +56,24 @@ Future<Map<String, dynamic>> createPost(String title, String body, String userId
   };
   return await postData(url, thePostData);
 }
+
+Future<void> savePetToBackend(Pet pet) async {
+    final url = 'http://34.84.255.8:8080/pets'; // 替换为你的API端点
+    final response = await http.post(
+      Uri.parse(url),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: jsonEncode(pet.toJson()),
+    );
+
+    if (response.statusCode == 200) {
+      // 如果服务器返回了一个成功的响应
+      print('Pet added successfully');
+    } else {
+      print(response.body);
+      print(response.statusCode);
+      // 如果服务器返回了一个错误
+      print('Failed to add pet');
+    }
+  }
