@@ -13,10 +13,9 @@ Future<Map<String, dynamic>> fetchData(String url) async {
   }
 }
 
-
 User fetchUserData(String url) {
     final User user = User(
-    name: 'cliecy',
+    name: 'ロウチン',
     avatarUrl: 'https://avatars.githubusercontent.com/u/68729861?v=4',
     email: 'guanjiezou@gmail.com',
   );

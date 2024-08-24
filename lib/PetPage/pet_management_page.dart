@@ -5,8 +5,9 @@ import "package:aipet/Utility/typedefinition.dart";
 
 class PetManagementPage extends StatelessWidget {
   final List<Pet> pets = [
-    Pet(name: 'Buddy', type: 'Dog'),
-    Pet(name: 'Mittens', type: 'Cat'),
+    Pet(name: 'Buddy', type: 'Dog', weight: 5.00, birthday: DateTime(2021, 3, 6)),
+    Pet(name: 'Mittens', type: 'Cat', weight: 6.00, birthday: DateTime(2022, 8, 4)),
+    Pet(name: 'Leo', type: 'HakiRen', weight: 75.00, birthday: DateTime(2001, 1, 27)),
   ];
 
  PetManagementPage({super.key});

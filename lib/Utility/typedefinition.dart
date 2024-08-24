@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 
 class User {
@@ -24,10 +26,11 @@ class Message {
 }
 
 class Pet {
-  final String name;
-  final String type;
-
-  Pet({required this.name, required this.type});
+  String    name;
+  String    type;
+  double     weight;
+  DateTime  birthday;
+  Pet({required this.name, required this.type, required this.weight, required this.birthday});
 }
 
 class Reminder {
