@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 
 class User {
@@ -25,10 +27,20 @@ class Chat {
 // }
 
 class Pet {
-  final String name;
-  final String type;
-
-  Pet({required this.name, required this.type});
+  String    name;
+  String    type;
+  String    kind;
+  double    weight;
+  DateTime  birthday;
+  Pet({required this.name, required this.type, required this.kind, required this.weight, required this.birthday});
+  Map<String, dynamic> toJson() => {
+    'name': name,
+    'type': type,
+    'kind': kind,
+    'weight': weight,
+    'birthday': birthday.toIso8601String(),
+    'OwnerName':'Mitsuhiro',
+  };
 }
 
 class Reminder {
