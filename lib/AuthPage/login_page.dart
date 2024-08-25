@@ -1,7 +1,10 @@
 import 'dart:convert';
+import 'package:aipet/main.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:aipet/Utility/typedefinition.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:image_picker/image_picker.dart';
+import 'dart:io';
 
 class LoginPage extends StatefulWidget {
   final String? prefilledUsername;
@@ -15,11 +18,20 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   late TextEditingController _usernameController;
   final TextEditingController _passwordController = TextEditingController();
+  final ImagePicker _picker = ImagePicker();
+  XFile? _image;
 
   @override
   void initState() {
     super.initState();
     _usernameController = TextEditingController(text: widget.prefilledUsername);
+  }
+
+  Future<void> _pickImage() async {
+    final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
+    setState(() {
+      _image = image;
+    });
   }
 
   void _login() async {
@@ -28,46 +40,38 @@ class _LoginPageState extends State<LoginPage> {
 
     if (username.isNotEmpty && password.isNotEmpty) {
       try {
-        // 通过HTTP POST请求登录
-        //   var response = await http.post(
-        //   Uri.parse('https://your-server-url.com/login'),
-        //   headers: <String, String>{
-        //     'Content-Type': 'application/json; charset=UTF-8',
-        //   },
-        //   body: jsonEncode(<String, String>{
-        //     'username': username,
-        //     'password': password,
-        //   }),
-        // );
-        // 模拟的本地响应
-        if (username == 'testuser' && password == '123') {
-          var response = {
-            'statusCode': 200,
-            'body': jsonEncode({
-              'UserName': username,
-              'email': 'test@example.com',
-              'avatarUrl': 'https://example.com/avatar.png',
-            }),
-          };
+        // 通过 HTTP POST 请求登录
+        var response = await http.post(
+          Uri.parse('http://localhost:8080/users/login'), // 使用你正确的 API 端点
+          headers: <String, String>{
+            'Content-Type': 'application/json; charset=UTF-8',
+          },
+          body: jsonEncode(<String, String>{
+            'username': username,
+            'password': password,
+          }),
+        );
 
-          // 模拟成功登录，返回用户数据
-          if (response['statusCode'] == 200) {
-            var responseData = jsonDecode(response['body'] as String);
-            Navigator.pop(context, {
-              'name': responseData['UserName'],
-              'email': responseData['email'],
-              'avatarUrl': responseData['avatarUrl'],
-            });
+        if (response.statusCode == 200) {
+          var responseData = jsonDecode(response.body);
+          if (responseData['message'] == 'Login successful') {
+            SharedPreferences prefs = await SharedPreferences.getInstance();
+            await prefs.setBool('isLoggedIn', true);
+            await prefs.setString('name', username);
+
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => const MyBottomNavigationBarApp()),
+            );
           } else {
             ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                  content: Text('Login failed: ${response['statusCode']}')),
+              SnackBar(content: Text('Login failed: ${responseData['error']}')),
             );
           }
         } else {
-          // 模拟的错误响应
           ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text('Invalid username or password')),
+            SnackBar(content: Text('Login failed: ${response.statusCode}')),
           );
         }
       } catch (e) {
@@ -87,18 +91,25 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Login'),
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
-          onPressed: () {
-            Navigator.pop(context);
-          },
-        ),
+        title: const Text('Aipet'),
+        leading: null,
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
+            if (_image != null)
+              Image.file(
+                File(_image!.path),
+                height: 200,
+              ),
+            const SizedBox(height: 20),
+            ElevatedButton(
+              onPressed: _pickImage,
+              child: const Text('Insert Image'),
+            ),
+            const SizedBox(height: 20),
             TextField(
               controller: _usernameController,
               decoration: const InputDecoration(labelText: 'Username'),

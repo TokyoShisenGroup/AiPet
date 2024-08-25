@@ -4,12 +4,7 @@ import 'ChatPage/chat_list_page.dart';
 import 'PetPage/pet_management_page.dart';
 import 'AuthPage/login_page.dart';
 import 'Utility/typedefinition.dart';
-import 'package:flutter/material.dart';
-import 'MyPage/mypage.dart';
-import 'ChatPage/chat_list_page.dart';
-import 'PetPage/pet_management_page.dart';
-import 'AuthPage/login_page.dart';
-import 'Utility/typedefinition.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 void main() {
   runApp(const MyApp());
@@ -25,7 +20,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         useMaterial3: true,
       ),
-      home: const MyBottomNavigationBarApp(),
+      home: const LoginPage(), // 启动时直接导航到登录页面
     );
   }
 }
@@ -55,12 +50,27 @@ class _MyBottomNavigationBarState extends State<MyBottomNavigationBar> {
   @override
   void initState() {
     super.initState();
+    _loadUser();
     _widgetOptions = <Widget>[
       ChatListPage(),
       PetManagementPage(),
       const Center(
           child: Text('Profile Page')), // Placeholder for profile until login
     ];
+  }
+
+  void _loadUser() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    final name = prefs.getString('name');
+    final email = prefs.getString('email');
+    final avatarUrl = prefs.getString('avatarUrl');
+
+    if (name != null && email != null && avatarUrl != null) {
+      setState(() {
+        _user = User(name: name, email: email, avatarUrl: avatarUrl);
+        _widgetOptions[2] = MyPage(user: _user!, onLogout: _logout);
+      });
+    }
   }
 
   void _onItemTapped(int index) {
@@ -80,6 +90,12 @@ class _MyBottomNavigationBarState extends State<MyBottomNavigationBar> {
     );
 
     if (result != null) {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      await prefs.setBool('isLoggedIn', true);
+      await prefs.setString('name', result['name']);
+      await prefs.setString('email', result['email']);
+      await prefs.setString('avatarUrl', result['avatarUrl']);
+
       setState(() {
         _user = User(
           name: result['name'],
@@ -92,7 +108,10 @@ class _MyBottomNavigationBarState extends State<MyBottomNavigationBar> {
     }
   }
 
-  void _logout() {
+  void _logout() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.clear();
+
     setState(() {
       _user = null;
       _widgetOptions[2] =
@@ -101,7 +120,7 @@ class _MyBottomNavigationBarState extends State<MyBottomNavigationBar> {
     });
     Navigator.pushReplacement(
       context,
-      MaterialPageRoute(builder: (context) => const MyBottomNavigationBarApp()),
+      MaterialPageRoute(builder: (context) => const LoginPage()),
     );
   }
 
@@ -110,6 +129,12 @@ class _MyBottomNavigationBarState extends State<MyBottomNavigationBar> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('AiPet'),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.logout),
+            onPressed: _logout,
+          ),
+        ],
       ),
       body: Center(
         child: _widgetOptions.elementAt(_selectedIndex),
