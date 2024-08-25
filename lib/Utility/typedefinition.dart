@@ -54,6 +54,7 @@ class Pet {
     'weight': weight,
     'OwnerName':'Mitsuhiro',
   };
+
 }
 
 class Reminder {
@@ -68,3 +69,4 @@ class Friend {
   final int userid;
   Friend({required this.username, required this.userid});
 }
+
