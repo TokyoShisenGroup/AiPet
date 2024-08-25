@@ -16,7 +16,8 @@ Future<Map<String, dynamic>> fetchData(String url) async {
 
 User fetchUserData(String url) {
     final User user = User(
-    name: 'Mitsuhiro',
+    userid: 3,
+    name: 'cliecy',
     avatarUrl: 'https://avatars.githubusercontent.com/u/68729861?v=4',
     email: 'guanjiezou@gmail.com',
   );
@@ -40,13 +41,33 @@ Future<Map<String, dynamic>> postData(String url, Map<String, String> body) asyn
   }
 }
 
-/// 示例：获取特定ID的帖子数据
-Future<Map<String, dynamic>> fetchPost(int id) async {
+Future<Map<String, dynamic>> fetchFriends(int id) async {
   final url = 'https://jsonplaceholder.typicode.com/posts/$id';
-  return await fetchData(url);
-}
+  final response = await http.get(Uri.parse(url));
 
-/// 示例：创建一个新的帖子
+  if (response.statusCode == 200) {
+    return jsonDecode(response.body);
+  } else {
+    throw Exception('Failed to load data');
+  }
+}
+/// 示例：获取特定ID的帖子数据
+// Future<Map<String, dynamic>> fetchPost(int id) async {
+//   final url = 'https://jsonplaceholder.typicode.com/posts/$id';
+//   return await fetchData(url);
+// }
+
+// /// 示例：创建一个新的帖子
+// Future<Map<String, dynamic>> createPost(String title, String body, String userId) async {
+//   const url = 'https://jsonplaceholder.typicode.com/posts';
+//   final thePostData = {
+//     'title': title,
+//     'body': body,
+//     'userId': userId,
+//   };
+//   return await postData(url, thePostData);
+// }
+
 Future<Map<String, dynamic>> createPost(String title, String body, String userId) async {
   const url = 'https://jsonplaceholder.typicode.com/posts';
   final thePostData = {
@@ -77,3 +98,4 @@ Future<void> savePetToBackend(Pet pet) async {
       print('Failed to add pet');
     }
   }
+
