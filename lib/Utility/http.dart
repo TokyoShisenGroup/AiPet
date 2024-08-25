@@ -48,7 +48,7 @@ Future<Map<String, dynamic>> fetchPost(int id) async {
 
 /// 示例：创建一个新的帖子
 Future<Map<String, dynamic>> createPost(String title, String body, String userId) async {
-  const url = 'https://jsonplaceholder.typicode.com/posts';
+  const url = 'http://jsonplaceholder.typicode.com/posts';
   final thePostData = {
     'title': title,
     'body': body,
@@ -58,7 +58,7 @@ Future<Map<String, dynamic>> createPost(String title, String body, String userId
 }
 
 Future<void> savePetToBackend(Pet pet) async {
-    final url = 'http://34.84.255.8:8081/pets'; // 替换为你的API端点 
+    final url = 'http://34.84.255.8:8080/pets/'; // 替换为你的API端点 
     final response = await http.post(
       Uri.parse(url),
       headers: <String, String>{
@@ -77,3 +77,22 @@ Future<void> savePetToBackend(Pet pet) async {
       print('Failed to add pet');
     }
   }
+
+  /// 示例：从后端拉取宠物数据
+  Future<List<Pet>> fetchPetsFromBackend() async {
+  final url = 'http://34.84.255.8:8080/pets/owner/:ownerName'; // 替换为你的API端点
+  final response = await http.get(Uri.parse(url));
+
+  if (response.statusCode == 200) {
+    print('Raw response body: ${response.body}');
+
+    // 清理 JSON 数据
+    final cleanedJsonString = response.body.replaceAll(RegExp(r'[\x00-\x1F\x7F]'), '');
+    final List<dynamic> jsonData = jsonDecode(cleanedJsonString);
+
+    print('Decoded JSON data: $jsonData');
+    return jsonData.map((data) => Pet.fromJson(data)).toList();
+  } else {
+    throw Exception('Failed to fetch pets');
+  }
+}

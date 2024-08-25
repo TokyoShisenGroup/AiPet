@@ -33,10 +33,11 @@ class _PetManagementPageState extends State<PetManagementPage> {
       context,
       MaterialPageRoute(builder: (context) => AddPetPage()),
     );
-
     if (newPet != null) {
-      addPet(newPet);
       savePetToBackend(newPet);
+      List<Pet> temp = await fetchPetsFromBackend();
+      print(temp);
+      pets.addAll(temp);
     }
   }
 

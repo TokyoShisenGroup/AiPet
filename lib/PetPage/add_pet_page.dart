@@ -73,7 +73,7 @@ class AddPetPage extends StatelessWidget {
                 final String type = _typeController.text;
                 final String kind = _kindController.text;
                 final double weight = double.parse(_weightController.text);
-                final DateTime birthday = DateTime.parse(_birthdayController.text);
+                final DateTime birthday = DateTime.parse(_birthdayController.text).toUtc().add(Duration(hours: 9));
 
                 final Pet newPet = Pet(
                   name: name,

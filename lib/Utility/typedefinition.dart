@@ -32,12 +32,25 @@ class Pet {
   double    weight;
   DateTime  birthday;
   Pet({required this.name, required this.type, required this.kind, required this.weight, required this.birthday});
+
+
+  factory Pet.fromJson(Map<String, dynamic> json) {
+    return Pet(
+      name: json['name'],
+      type: json['type'],
+      kind: json['kind'],
+      weight: json['weight'],
+      birthday: DateTime.parse(json['birthday']),
+    );
+  }
+
   Map<String, dynamic> toJson() => {
-    'name': name,
-    'type': type,
+    'PetName': name,
     'kind': kind,
-    'weight': weight,
+    'type': type,
+    'age': DateTime.now().year - birthday.year,
     'birthday': birthday.toIso8601String(),
+    'weight': weight,
     'OwnerName':'Mitsuhiro',
   };
 }
