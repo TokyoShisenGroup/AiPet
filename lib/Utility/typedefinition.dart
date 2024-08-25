@@ -15,14 +15,14 @@ class Chat {
   Chat({required this.friend, required this.lastMessage});
 }
 
-class Message {
-  final String sender;
-  final String content;
-  final DateTime timestamp;
-
-  Message(
-      {required this.sender, required this.content, required this.timestamp});
-}
+// class Message {
+//   final String sender;
+//   final String content;
+//   final DateTime timestamp;
+//
+//   Message(
+//       {required this.sender, required this.content, required this.timestamp});
+// }
 
 class Pet {
   final String name;

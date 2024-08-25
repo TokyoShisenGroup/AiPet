@@ -6,7 +6,7 @@ import 'dart:typed_data';
 
 void main() {
   final channel = WebSocketChannel.connect(
-    Uri.parse('ws://localhost:8080/ws'),
+    Uri.parse('ws://localhost:8081/ws'),
   );
 
   channel.stream.listen(
@@ -33,16 +33,20 @@ void main() {
     },
   );
 
-  // 创建并发送消息
-  final message = Message()
-    ..from = 'DartClient'
-    ..to = 'Server'
-    ..content = 'Hello from Dart!'
-    ..contentType = 1
-    ..type = 'text'
-    ..messageType = 1
-    ..url = ''
-    ..file = List<int>.from(utf8.encode(''));
 
-  channel.sink.add(message.writeToBuffer());
+  for (int i = 0; i < 10; i++) {
+    // 创建并发送消息
+    final message = Message()
+      ..from = 'DartClient'
+      ..to = 'Server'
+      ..content = 'Hello from Dart!'
+      ..contentType = 1
+      ..type = 'text'
+      ..messageType = 1
+      ..url = ''
+      ..file = List<int>.from(utf8.encode(''));
+
+    channel.sink.add(message.writeToBuffer());
+  }
+
 }
