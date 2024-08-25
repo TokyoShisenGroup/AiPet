@@ -22,15 +22,20 @@ class Message {
   final String content;
   final DateTime timestamp;
 
-  Message({required this.sender, required this.content, required this.timestamp});
+  Message(
+      {required this.sender, required this.content, required this.timestamp});
 }
 
 class Pet {
-  String    name;
-  String    type;
-  double     weight;
-  DateTime  birthday;
-  Pet({required this.name, required this.type, required this.weight, required this.birthday});
+  String name;
+  String type;
+  double weight;
+  DateTime birthday;
+  Pet(
+      {required this.name,
+      required this.type,
+      required this.weight,
+      required this.birthday});
 }
 
 class Reminder {
