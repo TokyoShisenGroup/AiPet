@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'MyPage/mypage.dart';
 import 'package:aipet/ChatPage/chat_list_page.dart';
 import 'package:aipet/PetPage/pet_management_page.dart'; // Import the pet management page
+import 'package:aipet/PostPage/post_list_page.dart'; // Import the post list page
 
 void main() {
   runApp(const MyApp());
@@ -44,6 +45,7 @@ class _MyBottomNavigationBarState extends State<MyBottomNavigationBar> {
   static final List<Widget> _widgetOptions = <Widget>[
     ChatListPage(),
     PetManagementPage(), // Add the pet management page
+    PostListPage(), // Add the post list page
     MyPage(),
   ];
 
@@ -56,9 +58,6 @@ class _MyBottomNavigationBarState extends State<MyBottomNavigationBar> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('AiPet'),
-      ),
       body: Center(
         child: _widgetOptions.elementAt(_selectedIndex),
       ),
@@ -73,12 +72,17 @@ class _MyBottomNavigationBarState extends State<MyBottomNavigationBar> {
             label: 'Pets',
           ),
           BottomNavigationBarItem(
+            icon: Icon(Icons.post_add),
+            label: 'Posts', // Add the posts label
+          ),
+          BottomNavigationBarItem(
             icon: Icon(Icons.person),
             label: 'Profile',
           ),
         ],
         currentIndex: _selectedIndex,
         selectedItemColor: Colors.red,
+        unselectedItemColor: Colors.grey,
         onTap: _onItemTapped,
       ),
     );

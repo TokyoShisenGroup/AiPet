@@ -4,8 +4,8 @@ import 'package:aipet/Utility/typedefinition.dart';
 class FriendsListPage extends StatelessWidget {
   FriendsListPage({super.key});
   final List<User> friends = [
-    User(name: 'Alice', avatarUrl: 'https://example.com/avatar1.png', email: 'alice@example.com'),
-    User(name: 'Bob', avatarUrl: 'https://example.com/avatar2.png', email: 'bob@example.com'),
+    User(userid:1,name: 'Alice', avatarUrl: 'https://example.com/avatar1.png', email: 'alice@example.com'),
+    User(userid:2,name: 'Bob', avatarUrl: 'https://example.com/avatar2.png', email: 'bob@example.com'),
   ];
 
   @override
